@@ -1,6 +1,6 @@
 // src/pages/PatientManagementDashboard.jsx
 import React, { useState } from 'react';
-import Layout from '../components/Layout';
+import Layout from '../../../shared/components/Layout';
 import PatientListTable from '../components/PatientListTable';
 import '../styles/PatientManagementDashboard.scss';
 

@@ -1,13 +1,14 @@
 // src/pages/Dashboard.jsx
 import React from 'react';
-import Layout from '../components/Layout';
+import Layout from '../../../shared/components/Layout';
 import WelcomeCard from '../components/WelcomeCard';
 import StatsCards from '../components/StatsCards';
 import PieChart from '../components/PieChart';
 import LineChart from '../components/LineChart';
-import AppointmentTable from '../components/AppointmentTable';
-import Timeline from '../components/Timeline';
-import NotificationBar from '../components/NotificationBar';
+import AppointmentTable from '../../../shared/components/AppointmentTable';
+import Timeline from '../../../shared/components/Timeline';
+import NotificationBar from '../../../shared/components/NotificationBar';
+
 import '../styles/Dashboard.scss';
 
 const Dashboard = () => {

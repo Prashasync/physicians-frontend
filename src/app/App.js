@@ -1,11 +1,11 @@
 // src/App.js
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Layout from './components/Layout'; // ✅ Import layout
-import Dashboard from './pages/Dashboard';
-import AppointmentDashboard from './pages/AppointmentDashboard';
-import PatientManagementDashboard from './pages/PatientManagementDashboard';
-import MessageDashboard from './pages/MessageDashboard';
+import Dashboard from '../features/dashboard/pages/Dashboard';
+import AppointmentDashboard from '../features/appointments/pages/AppointmentDashboard';
+import PatientManagementDashboard from '../features/patients/pages/PatientManagementDashboard';
+import MessageDashboard from '../features/messaging/pages/MessageDashboard';
+import Layout from '../shared/components/Layout';
 
 function App() {
   return (

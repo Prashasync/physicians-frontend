@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import Layout from '../components/Layout';
-import PatientStatsCards from '../components/PatientStatsCards';
-import PatientSearchBar from '../components/PatientSearchBar';
+import Layout from '../../../shared/components/Layout';
+import PatientStatsCards from '../../patients/components/PatientStatsCards';
+import PatientSearchBar from '../../patients/components/PatientSearchBar';
 import PatientTable from '../components/PatientTable';
 import AddAppointmentModal from '../components/AddAppointmentModal';
 import EditAppointmentModal from '../components/EditAppointmentModal';

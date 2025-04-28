@@ -1,6 +1,6 @@
 // src/components/Topbar.jsx
 import React from 'react';
-import logo from '../assets/logo.svg';
+import logo from '../../assets/icons/logo.svg';
 import './Topbar.scss';
 
 const Topbar = ({ toggleSidebar,hamburgerRef }) => {

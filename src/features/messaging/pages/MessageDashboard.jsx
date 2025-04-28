@@ -1,6 +1,6 @@
 // src/pages/MessageDashboard.jsx
 import React, { useState, useEffect, useRef } from 'react';
-import Layout from '../components/Layout';
+import Layout from '../../../shared/components/Layout';
 import { FiSend, FiSearch, FiPhone } from 'react-icons/fi';
 import '../styles/MessageDashboard.scss';
 
