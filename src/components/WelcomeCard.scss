@@ -1,0 +1,45 @@
+.welcome-card {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+
+  .welcome-text {
+    h2 {
+      margin: 0;
+    }
+    p {
+      margin: 0.25rem 0 0;
+    }
+  }
+
+  .welcome-actions {
+    display: flex;
+    gap: 1rem;
+
+    .btn {
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      border: none;
+    }
+
+    .primary {
+      background: #6366f1;
+      color: white;
+    }
+
+    .outline {
+      border: 1px solid #6366f1;
+      color: #6366f1;
+      background: transparent;
+    }
+  }
+}

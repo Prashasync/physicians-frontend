@@ -1,0 +1,152 @@
+// src/components/Topbar.scss
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  padding: 0 0.5rem; // Minimal padding
+  background-color: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+  z-index: 1000;
+  height: 56px;
+  box-sizing: border-box;
+  width: 100vw; // Use viewport width
+  max-width: 100%; // Never exceed parent width
+  overflow: hidden;
+
+  // Strict containment for all direct children
+  > * {
+    flex-shrink: 0;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  .logo-section {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem; // Minimal gap
+    min-width: 0;
+    flex: 0 1 auto; // Can shrink but not grow
+    max-width: 60%; // Prevent overflow
+
+    .hamburger {
+      font-size: 1.3rem;
+      padding: 0.15rem;
+      margin: 0;
+      flex-shrink: 0;
+    }
+
+    .logo-img {
+      height: 28px;
+      width: auto;
+      max-width: 120px;
+      object-fit: contain;
+    }
+
+    .logo-text {
+      display: none;
+    }
+  }
+
+  .search-bar {
+   display:none;
+  }
+
+  .profile-section {
+    display: flex;
+    align-items: center;
+    gap: 0.15rem; // Very tight gap
+    flex-shrink: 0;
+    margin-left: auto;
+    padding-left: 0.25rem;
+
+    .notification {
+      font-size: 1.1rem;
+      padding: 0.15rem;
+      
+      .badge {
+        width: 14px;
+        height: 14px;
+        font-size: 0.5rem;
+      }
+    }
+
+    .profile-pic {
+      width: 28px;
+      height: 28px;
+    }
+  }
+
+  @media (min-width: 769px) {
+    height: 60px;
+    padding: 0 0.75rem;
+
+    .logo-section {
+      gap: 0.5rem;
+      max-width: none;
+
+      .logo-text {
+        display: block;
+        font-size: 1rem;
+        max-width: 150px;
+      }
+
+      .logo-img {
+        height: 32px;
+        max-width: 150px;
+      }
+    }
+
+    .search-bar {
+      display: flex; // ensures child layout is horizontal
+      align-items: center;
+      flex: 0 1 auto;
+      margin: 0 auto;
+      max-width: 400px;
+      width: 100%;
+      overflow: visible; // allow contents to flow
+    }
+
+    .search-bar button {
+      flex-shrink: 0;
+      padding: 0.25rem 0.5rem;
+      min-width: 40px; // or whatever suits your layout
+      overflow: visible;
+    }
+    .search-bar, .search-bar * {
+      box-sizing: border-box;
+    }
+    
+    
+
+    .profile-section {
+      gap: 0.5rem;
+
+      .notification {
+        font-size: 1.2rem;
+      }
+
+      .profile-pic {
+        width: 32px;
+        height: 32px;
+      }
+    }
+  }
+}
+.hamburger {
+  display: block; // show by default on mobile
+  font-size: 1.3rem;
+  padding: 0.15rem;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+@media (min-width: 769px) {
+  .hamburger {
+    display: none; // hide on desktop
+  }
+}
+
+

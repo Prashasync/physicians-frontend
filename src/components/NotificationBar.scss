@@ -1,0 +1,37 @@
+.notification-bar {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+
+  h4 {
+    margin-bottom: 1rem;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+
+    .note {
+      padding: 0.75rem;
+      margin-bottom: 0.5rem;
+      border-radius: 8px;
+      font-size: 0.95rem;
+
+      &.info {
+        background: #e0f2fe;
+        color: #0369a1;
+      }
+
+      &.warning {
+        background: #fef3c7;
+        color: #92400e;
+      }
+
+      &.reminder {
+        background: #ede9fe;
+        color: #5b21b6;
+      }
+    }
+  }
+}

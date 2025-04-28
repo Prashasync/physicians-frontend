@@ -1,0 +1,52 @@
+.patient-info-panel {
+    width: 280px;
+    background: #f9f9f9;
+    padding: 1rem;
+    border-left: 1px solid #ddd;
+    overflow-y: auto;
+    height: calc(100vh - 60px);
+  
+    h3 {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+      color: #333;
+    }
+  
+    .section {
+      margin-bottom: 1.5rem;
+  
+      h4 {
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+        color: #555;
+      }
+  
+      p {
+        margin: 0.25rem 0;
+      }
+  
+      ul {
+        list-style-type: disc;
+        padding-left: 1.2rem;
+  
+        li {
+          margin-bottom: 0.25rem;
+          font-size: 0.95rem;
+        }
+  
+        a {
+          color: #4a80f0;
+          text-decoration: none;
+  
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+  

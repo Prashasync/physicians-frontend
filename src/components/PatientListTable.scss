@@ -1,0 +1,45 @@
+.status-tag {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #fff;
+  display: inline-block;
+}
+
+.status-tag.stable {
+  background-color: #4ade80; // green
+}
+
+.status-tag.moderate {
+  background-color: #facc15; // yellow
+  color: #000;
+}
+
+.status-tag.critical {
+  background-color: #f87171; // red
+}
+
+.status-tag.unknown {
+  background-color: #9ca3af; // gray
+}
+
+.score-bar-wrapper {
+  position: relative;
+  background-color: #e5e7eb;
+  height: 6px;
+  border-radius: 8px;
+  width: 100px;
+}
+
+.score-bar {
+  background-color: #4f46e5;
+  height: 100%;
+  border-radius: 8px;
+}
+
+.score-label {
+  font-size: 0.75rem;
+  margin-left: 8px;
+  display: inline-block;
+}

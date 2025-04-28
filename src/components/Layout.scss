@@ -1,0 +1,72 @@
+// src/styles/Layout.scss
+
+.dashboard-layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  
+    .main-container {
+      display: flex;
+      flex: 1;
+    }
+  
+    .sidebar-wrapper {
+      position: fixed;
+      top: 60px; // height of the topbar
+      left: 0;
+      bottom: 0;
+      width: 70px;
+      transition: width 0.3s ease;
+      z-index: 1000;
+      background: transparent;
+  
+      &.open {
+        width: 170px;
+      }
+  
+      @media (max-width: 768px) {
+        top: 0;
+        width: 0;
+        &.open {
+          width: 170px;
+        }
+      }
+    }
+  
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+    }
+  
+    .topbar-wrapper {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1001;
+    }
+  
+    .content-area {
+      margin-top: 60px; // topbar height
+      margin-left: 70px; // collapsed sidebar width
+      padding: 1rem;
+      transition: margin-left 0.3s ease;
+      width: calc(100% - 70px);
+  
+      &.shifted {
+        margin-left: 170px;
+        width: calc(100% - 170px);
+      }
+  
+      @media (max-width: 768px) {
+        margin-left: 0;
+        width: 100%;
+      }
+    }
+  }
+  

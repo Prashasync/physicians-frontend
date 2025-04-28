@@ -1,0 +1,29 @@
+.stat-card {
+    background: #fff;
+    padding: 1rem 1.25rem;
+    border-radius: 12px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  
+    h4 {
+      margin: 0 0 0.5rem;
+      color: #333;
+    }
+  
+    p {
+      font-size: 1.4rem;
+      font-weight: bold;
+  
+      .sub {
+        font-size: 0.9rem;
+        color: #666;
+        margin-left: 0.5rem;
+      }
+  
+      .trend {
+        font-size: 0.9rem;
+        color: #22c55e;
+        margin-left: 0.5rem;
+      }
+    }
+  }
+  

@@ -1,0 +1,161 @@
+// src/styles/Dashboard.scss
+
+// Design Tokens
+$primary: #4a6cf7;
+$primary-dark: #2541b2;
+$glass: rgba(255,255,255,0.85);
+$shadow: 0 8px 32px rgba(0,0,0,0.1);
+$transition: all 0.3s ease-out;
+
+.dashboard-content {
+  padding: 2rem;
+  background: linear-gradient(135deg, #f8faff 0%, #f0f4ff 100%);
+  min-height: 100vh;
+  
+  h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    position: relative;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -0.5rem;
+      left: 0;
+      width: 3rem;
+      height: 0.25rem;
+      background: linear-gradient(90deg, $primary, $primary-dark);
+      border-radius: 1rem;
+    }
+  }
+}
+
+// Role Switcher - Glass Morphism
+.role-switcher {
+  margin-bottom: 2rem;
+  
+  select {
+    background: $glass;
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 0.75rem 1.5rem;
+    border-radius: 2rem;
+    font-weight: 500;
+    box-shadow: $shadow;
+    transition: $transition;
+    cursor: pointer;
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.15);
+    }
+  }
+}
+
+// Appointments Visibility Enhancements
+.appointment-table {
+  background: $glass;
+  backdrop-filter: blur(12px);
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: $shadow;
+  
+  th {
+    background: rgba($primary, 0.1);
+    color: $primary-dark;
+    font-weight: 600;
+    padding: 1rem 1.5rem;
+  }
+  
+  td {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    
+    &:first-child {
+      font-weight: 600;
+      color: $primary;
+    }
+  }
+  
+  tr:hover td {
+    background: rgba($primary, 0.03);
+  }
+}
+
+// Follow-up Checklist Styling
+.timeline-card {
+  background: $glass;
+  backdrop-filter: blur(12px);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: $shadow;
+  
+  .timeline-item {
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    border-left: 3px solid $primary;
+    transition: $transition;
+    
+    &:hover {
+      transform: translateX(5px);
+      background: rgba($primary, 0.03);
+    }
+    
+    .timeline-time {
+      font-weight: 600;
+      color: $primary;
+    }
+  }
+}
+
+// Notifications - Floating Glass Panel
+.notifications-card {
+  background: $glass;
+  backdrop-filter: blur(12px);
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: $shadow;
+  
+  .notifications-header {
+    background: linear-gradient(90deg, $primary, $primary-dark);
+    padding: 1.25rem 1.5rem;
+    color: white;
+    font-weight: 600;
+  }
+  
+  .notification-item {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    transition: $transition;
+    
+    &:hover {
+      background: rgba($primary, 0.05);
+    }
+    
+    .notification-badge {
+      width: 1.5rem;
+      height: 1.5rem;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 1rem;
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+  }
+}
+
+// Responsive Tweaks
+@media (max-width: 768px) {
+  .dashboard-content {
+    padding: 1.5rem;
+    
+    .dashboard-lower-section {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  }
+}

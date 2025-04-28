@@ -1,0 +1,841 @@
+// ======================
+// DESIGN TOKENS
+// ======================
+$primary: #4a6cf7;
+$primary-light: #6d8af9;
+$primary-dark: #2541b2;
+$secondary: #7c4dff;
+$success: #00c853;
+$warning: #ffab00;
+$danger: #ff3d00;
+$info: #00b8d4;
+$dark: #0f172a;
+$medium: #64748b;
+$light: #f1f5f9;
+$bg-gradient: linear-gradient(135deg, #f5f7ff 0%, #f0f4ff 100%);
+
+$glass-effect: rgba(255, 255, 255, 0.96);
+$glass-border: 1px solid rgba(255, 255, 255, 0.36);
+$glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+$glass-blur: blur(20px);
+
+$shadow-3d: 0 12px 40px -12px rgba($primary, 0.24);
+$text-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+$radius-sm: 12px;
+$radius-md: 16px;
+$radius-lg: 24px;
+$radius-xl: 32px;
+
+$transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
+// ======================
+// BASE LAYOUT
+// ======================
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+.patient-dashboard-content {
+  padding: 3rem 2rem;
+  background: $bg-gradient;
+  min-height: 100vh;
+  font-family: 'Inter', system-ui, sans-serif;
+  color: $dark;
+  margin-top: 80px;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+
+  h2 {
+    font-size: 2.25rem;
+    font-weight: 800;
+    margin-bottom: 2rem;
+    position: relative;
+    display: inline-block;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -0.75rem;
+      left: 0;
+      width: 5rem;
+      height: 0.375rem;
+      background: linear-gradient(90deg, $primary, $secondary);
+      border-radius: 0.25rem;
+    }
+  }
+}
+
+// ======================
+// MAIN WRAPPER
+// ======================
+.appointment-dashboard-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  width: 100%;
+  overflow-x: hidden;
+  padding: 0;
+
+  .main-content {
+    flex: 1;
+    min-width: 600px;
+  }
+
+  .right-sidebar-calendar {
+    width: 260px;
+    min-width: 240px;
+    background: #fff;
+    padding: 16px;
+    border-radius: $radius-lg;
+    box-shadow: $glass-shadow;
+    height: fit-content;
+    position: sticky;
+    top: 100px;
+
+    h4 {
+      text-align: center;
+      margin-bottom: 12px;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .react-calendar {
+      width: 100%;
+      border: none;
+      background: transparent;
+    }
+  }
+}
+
+// ======================
+// SEARCH + FILTER
+// ======================
+.search-bar-container,
+.search-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 1.5rem 0;
+  position: relative;
+  z-index: 1;
+
+  input {
+    width: 100%;
+    background: $glass-effect;
+    backdrop-filter: $glass-blur;
+    border: $glass-border;
+    border-radius: $radius-md;
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: $dark;
+    transition: $transition;
+    box-shadow: $glass-shadow;
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba($primary, 0.1);
+    }
+
+    &::placeholder {
+      color: rgba($dark, 0.5);
+    }
+  }
+}
+
+.search-container::before {
+  content: '🔍';
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+  color: rgba($dark, 0.6);
+}
+
+.filter-dropdown select {
+  background: $glass-effect;
+  border: $glass-border;
+  border-radius: $radius-md;
+  padding: 0.875rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: $dark;
+  width: 100%;
+  max-width: 250px;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg fill='none' stroke='black' stroke-width='2' viewBox='0 0 24 24'%3e%3cpath d='M6 9l6 6 6-6'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1rem;
+  transition: $transition;
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba($primary, 0.1);
+  }
+}
+
+// ======================
+// BUTTONS
+// ======================
+.view-toggle,
+.view-mode-switch,
+.list-month-nav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1.5rem 0;
+
+  button {
+    background: $glass-effect;
+    border: none;
+    border-radius: $radius-md;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: $transition;
+    color: $dark;
+
+    &.active {
+      background: linear-gradient(135deg, $primary 0%, $secondary 100%);
+      color: #fff;
+    }
+
+    &:hover {
+      background: $light;
+    }
+  }
+}
+
+.list-month-nav span {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.add-appointment-btn {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background: linear-gradient(135deg, $primary 0%, $secondary 100%);
+  color: #fff;
+  border: none;
+  border-radius: $radius-xl;
+  padding: 1rem 1.5rem;
+  font-size: 1rem;
+  box-shadow: 0 8px 24px rgba($primary, 0.3);
+  cursor: pointer;
+  transition: $transition;
+
+  &:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 12px 32px rgba($primary, 0.4);
+  }
+}
+
+// ======================
+// CALENDAR HIGHLIGHTS
+// ======================
+.react-calendar__tile--now {
+  background: $primary-light;
+  color: #fff;
+  border-radius: 8px;
+}
+
+// ======================
+// RESPONSIVE
+// ======================
+@media (max-width: 991px) {
+  .appointment-dashboard-wrapper {
+    flex-direction: column;
+
+    .right-sidebar-calendar {
+      width: 100%;
+      position: static;
+      margin-top: 2rem;
+      box-shadow: none;
+      background: transparent;
+      padding: 0;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .patient-dashboard-content {
+    padding: 1.5rem;
+    margin-top: 60px;
+  }
+
+  .appointment-dashboard-wrapper {
+    padding: 0;
+
+    .main-content {
+      width: 100%;
+      order: 2;
+    }
+
+    .right-sidebar-calendar {
+      width: 100%;
+      order: 1;
+    }
+  }
+
+  .view-toggle,
+  .view-mode-switch {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .search-bar-container,
+  .filter-dropdown {
+    width: 100%;
+  }
+
+  .add-appointment-btn {
+    bottom: 1rem;
+    right: 1rem;
+    font-size: 0.9rem;
+    padding: 0.75rem 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .filter-dropdown select,
+  .search-bar-container input {
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+  }
+}
+// ======================
+// RESPONSIVE
+// ======================
+@media (max-width: 991px) {
+  .appointment-dashboard-wrapper {
+    flex-direction: column;
+
+    .main-content {
+      min-width: 100%;
+    }
+
+    .right-sidebar-calendar {
+      width: 100%;
+      position: static;
+      margin-top: 2rem;
+      box-shadow: none;
+      background: transparent;
+      padding: 0;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .patient-dashboard-content {
+    padding: 1.5rem 1rem;
+    margin-top: 60px;
+    
+    h2 {
+      font-size: 1.75rem;
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  .appointment-dashboard-wrapper {
+    gap: 16px;
+    
+    .main-content {
+      width: 100%;
+      min-width: 100%;
+    }
+  }
+
+  .search-bar-container,
+  .search-container {
+    margin: 1rem 0;
+    
+    input {
+      padding: 0.75rem 1.25rem;
+      font-size: 0.95rem;
+    }
+  }
+
+  .search-container::before {
+    left: 0.8rem;
+    font-size: 1rem;
+  }
+
+  .filter-dropdown select {
+    max-width: 100%;
+    padding: 0.75rem 1.25rem;
+  }
+
+  .view-toggle,
+  .view-mode-switch {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin: 1rem 0;
+    
+    button {
+      padding: 0.6rem 1.2rem;
+      font-size: 0.9rem;
+      flex: 1 0 calc(50% - 0.5rem);
+    }
+  }
+
+  .add-appointment-btn {
+    bottom: 1.25rem;
+    right: 1.25rem;
+    padding: 0.85rem 1.35rem;
+    font-size: 0.95rem;
+    border-radius: $radius-lg;
+  }
+}
+
+@media (max-width: 480px) {
+  .patient-dashboard-content {
+    padding: 1.25rem 0.75rem;
+    
+    h2 {
+      font-size: 1.5rem;
+      
+      &::after {
+        bottom: -0.5rem;
+        width: 3.5rem;
+        height: 0.25rem;
+      }
+    }
+  }
+
+  .search-bar-container input,
+  .filter-dropdown select {
+    padding: 0.7rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .view-toggle,
+  .view-mode-switch {
+    button {
+      padding: 0.5rem 1rem;
+    }
+  }
+
+  .list-month-nav span {
+    font-size: 16px;
+  }
+
+  .add-appointment-btn {
+    bottom: 1rem;
+    right: 1rem;
+    padding: 0.75rem 1.25rem;
+    font-size: 0.85rem;
+  }
+}
+// Add these styles to your existing SCSS file
+
+// ======================
+// FULL PAGE CALENDAR MODAL
+// ======================
+.full-calendar-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: $glass-effect;
+  backdrop-filter: $glass-blur;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  overflow-y: auto;
+  transition: all 0.3s ease-out;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+
+  &.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: $glass-border;
+
+    h2 {
+      margin: 0;
+      font-size: 2rem;
+      color: $dark;
+
+      &::after {
+        display: none;
+      }
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: $medium;
+      transition: $transition;
+
+      &:hover {
+        color: $danger;
+        transform: rotate(90deg);
+      }
+    }
+  }
+
+  .calendar-container {
+    flex: 1;
+    background: white;
+    border-radius: $radius-lg;
+    padding: 2rem;
+    box-shadow: $glass-shadow;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+
+    .react-calendar {
+      width: 100%;
+      border: none;
+      font-family: 'Inter', sans-serif;
+
+      &__navigation {
+        display: flex;
+        margin-bottom: 1.5rem;
+
+        button {
+          background: none;
+          border: none;
+          font-size: 1rem;
+          font-weight: 600;
+          color: $dark;
+          padding: 0.5rem 1rem;
+          border-radius: $radius-sm;
+          transition: $transition;
+
+          &:hover {
+            background: $light;
+          }
+
+          &:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+          }
+        }
+
+        &__label {
+          flex-grow: 1;
+          text-align: center;
+          font-size: 1.25rem;
+          font-weight: 700;
+          color: $dark;
+        }
+      }
+
+      &__month-view {
+        &__weekdays {
+          text-align: center;
+          margin-bottom: 1rem;
+          font-weight: 600;
+          color: $medium;
+          text-transform: uppercase;
+          font-size: 0.85rem;
+
+          abbr {
+            text-decoration: none;
+          }
+        }
+
+        &__days {
+          &__day {
+            padding: 1rem;
+            text-align: center;
+            border-radius: $radius-sm;
+            transition: $transition;
+
+            &--neighboringMonth {
+              color: rgba($medium, 0.5);
+            }
+
+            &:hover {
+              background: $light;
+            }
+
+            &--active {
+              background: linear-gradient(135deg, $primary 0%, $secondary 100%);
+              color: white;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Update the right sidebar calendar to be clickable
+.right-sidebar-calendar {
+  cursor: pointer;
+  transition: $transition;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow-3d;
+  }
+}
+
+// Add this to your media queries for responsiveness
+@media (max-width: 767px) {
+  .full-calendar-modal {
+    padding: 1rem;
+
+    .modal-header {
+      margin-bottom: 1rem;
+
+      h2 {
+        font-size: 1.5rem;
+      }
+    }
+
+    .calendar-container {
+      padding: 1rem;
+
+      .react-calendar {
+        &__navigation {
+          margin-bottom: 1rem;
+        }
+
+        &__month-view {
+          &__days {
+            &__day {
+              padding: 0.5rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .full-calendar-modal {
+    padding: 0.5rem;
+
+    .calendar-container {
+      padding: 0.5rem;
+    }
+  }
+}
+// Add these to your existing SCSS file
+
+.full-calendar-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(20px);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease-out;
+  
+  &.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.36);
+
+    h2 {
+      margin: 0;
+      font-size: 2rem;
+      color: #0f172a;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #64748b;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
+      &:hover {
+        color: #ff3d00;
+        transform: rotate(90deg);
+      }
+    }
+  }
+
+  .calendar-container {
+    flex: 1;
+    background: white;
+    border-radius: 24px;
+    padding: 2rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+
+    .react-calendar {
+      width: 100%;
+      border: none;
+      font-family: 'Inter', sans-serif;
+
+      &__navigation {
+        display: flex;
+        margin-bottom: 1.5rem;
+
+        button {
+          background: none;
+          border: none;
+          font-size: 1rem;
+          font-weight: 600;
+          color: #0f172a;
+          padding: 0.5rem 1rem;
+          border-radius: 12px;
+          transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
+          &:hover {
+            background: #f1f5f9;
+          }
+
+          &:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+          }
+        }
+
+        &__label {
+          flex-grow: 1;
+          text-align: center;
+          font-size: 1.25rem;
+          font-weight: 700;
+          color: #0f172a;
+        }
+      }
+
+      &__month-view {
+        &__weekdays {
+          text-align: center;
+          margin-bottom: 1rem;
+          font-weight: 600;
+          color: #64748b;
+          text-transform: uppercase;
+          font-size: 0.85rem;
+
+          abbr {
+            text-decoration: none;
+          }
+        }
+
+        &__days {
+          &__day {
+            padding: 1rem;
+            text-align: center;
+            border-radius: 12px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+
+            &--neighboringMonth {
+              color: rgba(100, 116, 139, 0.5);
+            }
+
+            &:hover {
+              background: #f1f5f9;
+            }
+
+            &--active {
+              background: linear-gradient(135deg, #4a6cf7 0%, #7c4dff 100%);
+              color: white;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.appointment-dot {
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  background: #4a6cf7;
+  border-radius: 50%;
+}
+
+.right-sidebar-calendar {
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px -12px rgba(74, 108, 247, 0.24);
+  }
+}
+
+@media (max-width: 767px) {
+  .full-calendar-modal {
+    padding: 1rem;
+
+    .modal-header {
+      margin-bottom: 1rem;
+
+      h2 {
+        font-size: 1.5rem;
+      }
+    }
+
+    .calendar-container {
+      padding: 1rem;
+
+      .react-calendar {
+        &__navigation {
+          margin-bottom: 1rem;
+        }
+
+        &__month-view {
+          &__days {
+            &__day {
+              padding: 0.5rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .full-calendar-modal {
+    padding: 0.5rem;
+
+    .calendar-container {
+      padding: 0.5rem;
+    }
+  }
+}
