@@ -5,11 +5,17 @@ import Dashboard from '../features/dashboard/pages/Dashboard';
 import AppointmentDashboard from '../features/appointments/pages/AppointmentDashboard';
 import PatientManagementDashboard from '../features/patients/pages/PatientManagementDashboard';
 import MessageDashboard from '../features/messaging/pages/MessageDashboard';
+import ClinicProfilePage from '../features/clinicProfile/pages/ClinicProfilePage';
 import Layout from '../shared/components/Layout';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function App() {
   return (
     <Router>
+       <ToastContainer position="top-right" autoClose={2000} />
+
       <Routes>
         <Route path="/" element={<Navigate to="/dashboard" />} />
         
@@ -18,6 +24,8 @@ function App() {
         <Route path="/Appointments" element={<Layout><AppointmentDashboard /></Layout>} />
         <Route path="/manage-patients" element={<Layout><PatientManagementDashboard /></Layout>} />
         <Route path="/messaging" element={<Layout><MessageDashboard /></Layout>} />
+        <Route path="/clinic-profile" element={<Layout><ClinicProfilePage /></Layout>} />
+
       </Routes>
     </Router>
   );

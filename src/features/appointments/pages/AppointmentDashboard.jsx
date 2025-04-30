@@ -1,3 +1,5 @@
+// src/features/appointments/pages/AppointmentDashboard.jsx
+
 import React, { useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
@@ -7,6 +9,7 @@ import PatientSearchBar from '../../patients/components/PatientSearchBar';
 import PatientTable from '../components/PatientTable';
 import AddAppointmentModal from '../components/AddAppointmentModal';
 import EditAppointmentModal from '../components/EditAppointmentModal';
+import AppointmentCalendar from '../components/AppointmentCalendar';
 import { toast } from 'react-toastify';
 import '../styles/AppointmentDashboard.scss';
 
@@ -19,24 +22,50 @@ const AppointmentDashboard = () => {
   const [treatmentFilter, setTreatmentFilter] = useState('');
   const [selectedDate, setSelectedDate] = useState(null);
   const [currentMonth, setCurrentMonth] = useState(new Date());
-  const [showFullCalendar, setShowFullCalendar] = useState(false);
+  const [calendarView, setCalendarView] = useState('month');
 
   const [appointments, setAppointments] = useState([
     {
       id: 1,
       name: 'John Doe',
       treatment: 'Anxiety Therapy',
-      date: new Date(2025, 1, 15, 10, 0),
-      status: 'Confirmed',
-      notes: 'Initial consultation'
+      title: 'John Doe - Anxiety Therapy',
+      start: new Date(2025, 3, 23, 10, 0),
+      end: new Date(2025, 3, 23, 11, 0),
+      age: 34,
+      gender: 'F',
+      joined: '2025-04-23',
+      lastCheck: '2025-04-21',
+      score: '70%',
+      meds: 'Yes'
     },
     {
       id: 2,
-      name: 'Jane Smith',
-      treatment: 'Depression Counseling',
-      date: new Date(2025, 1, 18, 14, 30),
-      status: 'Scheduled',
-      notes: 'Follow-up session'
+      name: 'Sneha Kusuma',
+      treatment: 'Anxiety Therapy',
+      title: 'Sneha Kusuma - Anxiety Therapy',
+      start: new Date(2025, 3, 24, 12, 0),
+      end: new Date(2025, 3, 24, 13, 0),
+      age: 30,
+      gender: 'F',
+      joined: '2025-04-24',
+      lastCheck: '2025-04-22',
+      score: '80%',
+      meds: 'Yes'
+    },
+    {
+      id: 3,
+      name: 'Mary Jones',
+      treatment: 'Sleep Disorder Care',
+      title: 'Mary Jones - Sleep Disorder Care',
+      start: new Date(2025, 3, 25, 9, 0),
+      end: new Date(2025, 3, 25, 10, 0),
+      age: 29,
+      gender: 'F',
+      joined: '2025-04-25',
+      lastCheck: '2025-04-23',
+      score: '90%',
+      meds: 'No'
     }
   ]);
 
@@ -45,13 +74,22 @@ const AppointmentDashboard = () => {
       ...appointment,
       id: Date.now(),
       title: `${appointment.name} - ${appointment.treatment}`,
-      date: new Date(appointment.date),
-      status: appointment.status || 'Scheduled'
+      start: new Date(appointment.start),
+      end: new Date(appointment.end)
     };
-    
-    setAppointments(prev => [...prev, newAppointment]);
-    setShowModal(false);
-    toast.success('Appointment added successfully!');
+
+    toast.loading('Saving appointment...');
+    setTimeout(() => {
+      setAppointments(prev => [...prev, newAppointment]);
+      setShowModal(false);
+      toast.dismiss();
+      toast.success('Appointment added successfully!');
+    }, 1000);
+
+    setSelectedDate(null);
+    setSearchQuery('');
+    setTreatmentFilter('');
+    setViewMode('calendar');
   };
 
   const handleEditClick = (appointment) => {
@@ -60,114 +98,76 @@ const AppointmentDashboard = () => {
   };
 
   const handleUpdateAppointment = (updatedAppt) => {
-    setAppointments(prev =>
-      prev.map(appt => (appt.id === updatedAppt.id ? updatedAppt : appt))
-    );
-    setEditModal(false);
-    toast.info('Appointment updated.');
+    toast.loading('Saving changes...');
+    setTimeout(() => {
+      setAppointments(prev =>
+        prev.map(appt => (appt.id === updatedAppt.id ? updatedAppt : appt))
+      );
+      setEditModal(false);
+      toast.dismiss();
+      toast.success('Appointment updated successfully!');
+    }, 1000);
   };
 
   const handleDeleteAppointment = (id) => {
-    setAppointments(prev => prev.filter(appt => appt.id !== id));
-    toast.error('Appointment deleted.');
-  };
-
-  const handleSearchClick = () => {
-    const match = appointments.find(appt =>
-      appt.name.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-
-    if (match) {
-      toast.success(`Found patient: ${match.name} (${match.treatment})`);
-    } else {
-      toast.warn('No matching patient found.');
-    }
+    toast.loading('Deleting appointment...');
+    setTimeout(() => {
+      setAppointments(prev => prev.filter(appt => appt.id !== id));
+      toast.dismiss();
+      toast.success('Appointment deleted successfully!');
+    }, 1000);
   };
 
   const filteredAppointments = appointments
+    .filter(appt =>
+      appt.title?.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+    .filter(appt =>
+      treatmentFilter === '' || appt.treatment === treatmentFilter
+    )
     .filter(appt => {
-      const matchesSearch = 
-        appt.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        appt.treatment?.toLowerCase().includes(searchQuery.toLowerCase());
-      
-      const matchesTreatment = 
-        treatmentFilter === '' || appt.treatment === treatmentFilter;
-      
-      const apptDate = appt.date instanceof Date ? appt.date : new Date(appt.date);
-      const matchesMonth = 
-        viewMode !== 'list' || (
-          apptDate.getMonth() === currentMonth.getMonth() &&
-          apptDate.getFullYear() === currentMonth.getFullYear()
-        );
-      
-      const matchesDate = 
-        !selectedDate || 
-        (apptDate.toDateString() === new Date(selectedDate).toDateString());
-      
-      return matchesSearch && matchesTreatment && matchesMonth && matchesDate;
+      if (!selectedDate) return true;
+      const apptDate = new Date(appt.start).toDateString();
+      return apptDate === new Date(selectedDate).toDateString();
+    })
+    .filter(appt => {
+      if (viewMode !== 'list') return true;
+      const apptDate = new Date(appt.start);
+      return (
+        apptDate.getMonth() === currentMonth.getMonth() &&
+        apptDate.getFullYear() === currentMonth.getFullYear()
+      );
     });
 
-  // Function to check if a date has appointments
-  const hasAppointments = (date) => {
-    return appointments.some(appt => {
-      const apptDate = appt.date instanceof Date ? appt.date : new Date(appt.date);
-      return apptDate.toDateString() === date.toDateString();
-    });
-  };
+  const filteredEvents = selectedDate
+    ? appointments.filter(appt => {
+        const apptDate = new Date(appt.start).toDateString();
+        const selected = new Date(selectedDate).toDateString();
+        return apptDate === selected;
+      })
+    : appointments;
 
   return (
     <Layout>
-      {/* Full Calendar Modal */}
-      {showFullCalendar && (
-        <div className="full-calendar-modal active">
-          <div className="modal-header">
-            <h2>Appointment Calendar</h2>
-            <button 
-              className="close-btn"
-              onClick={() => setShowFullCalendar(false)}
-            >
-              &times;
-            </button>
-          </div>
-          <div className="calendar-container">
-            <Calendar
-              onClickDay={(date) => {
-                setSelectedDate(date);
-                setShowFullCalendar(false);
-                setViewMode('list');
-              }}
-              value={selectedDate}
-              view="month"
-              tileContent={({ date, view }) => 
-                view === 'month' && hasAppointments(date) ? (
-                  <div className="appointment-dot"></div>
-                ) : null
-              }
-            />
-          </div>
-        </div>
-      )}
-
       <div className="appointment-dashboard-wrapper">
-        {/* Main Content */}
-        <div className="main-content">
-          {/* Header */}
-          <div className="appointments-header">
-            <h2>Appointment Management Dashboard</h2>
-            <div className="view-toggle">
-              <button
-                className={viewMode === 'list' ? 'active' : ''}
-                onClick={() => setViewMode('list')}
-              >
-                📋 List View
-              </button>
-              <button
-                className={viewMode === 'calendar' ? 'active' : ''}
-                onClick={() => setViewMode('calendar')}
-              >
-                🗓️ Calendar View
-              </button>
-            </div>
+
+        <div className="appointment-dashboard-content">
+          <h2>Appointment Management Dashboard</h2>
+
+          {/* View Toggle */}
+          <div className="view-toggle">
+            <button
+              className={viewMode === 'list' ? 'active' : ''}
+              onClick={() => setViewMode('list')}
+            >
+              📋 List View
+            </button>
+            <button
+              className={viewMode === 'calendar' ? 'active' : ''}
+              onClick={() => setViewMode('calendar')}
+            >
+              🗓️ Calendar View
+            </button>
           </div>
 
           {/* Modals */}
@@ -183,17 +183,15 @@ const AppointmentDashboard = () => {
             onUpdate={handleUpdateAppointment}
           />
 
-          {/* Stats Cards */}
-          <PatientStatsCards appointments={appointments} />
+          {/* Stats Section */}
+          <PatientStatsCards />
 
-          {/* Search Bar */}
+          {/* Filters */}
           <PatientSearchBar
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}
-            onSearch={handleSearchClick}
           />
 
-          {/* Filter Dropdown */}
           <div className="filter-dropdown">
             <select
               value={treatmentFilter}
@@ -206,71 +204,93 @@ const AppointmentDashboard = () => {
             </select>
           </div>
 
-          {/* Clear Filter by Date */}
           {selectedDate && (
             <button className="clear-filter" onClick={() => setSelectedDate(null)}>
               Clear Date Filter (Showing {new Date(selectedDate).toDateString()})
             </button>
           )}
 
-          {/* Month Navigation (List View Only) */}
-          {viewMode === 'list' && (
-            <div className="list-month-nav">
-              <button onClick={() => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1))}>
-                ←
-              </button>
-              <span>
-                {currentMonth.toLocaleString('default', { month: 'long', year: 'numeric' })}
-              </span>
-              <button onClick={() => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1))}>
-                →
-              </button>
-            </div>
-          )}
-
-          {/* Appointment List or Calendar */}
+          {/* List View or Calendar View */}
           {viewMode === 'list' ? (
-            <PatientTable
-              appointments={filteredAppointments}
-              onEdit={handleEditClick}
-              onDelete={handleDeleteAppointment}
-            />
-          ) : (
-            <div className="full-calendar-view">
-              <Calendar
-                onClickDay={setSelectedDate}
-                value={selectedDate}
-                tileContent={({ date, view }) => 
-                  view === 'month' && hasAppointments(date) ? (
-                    <div className="appointment-dot"></div>
-                  ) : null
-                }
+            <>
+              <div className="list-month-nav">
+                <button
+                  onClick={() => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1))}
+                >
+                  ←
+                </button>
+                <span>
+                  {currentMonth.toLocaleString('default', { month: 'long', year: 'numeric' })}
+                </span>
+                <button
+                  onClick={() => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1))}
+                >
+                  →
+                </button>
+              </div>
+
+              <PatientTable
+                appointments={filteredAppointments}
+                onEdit={handleEditClick}
+                onDelete={handleDeleteAppointment}
               />
-            </div>
+            </>
+          ) : (
+            <>
+              <div className="full-calendar-controls">
+                <button
+                  onClick={() => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1))}
+                >
+                  ←
+                </button>
+                <span>
+                  {currentMonth.toLocaleString('default', { month: 'long', year: 'numeric' })}
+                </span>
+                <button
+                  onClick={() => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1))}
+                >
+                  →
+                </button>
+              </div>
+
+              <AppointmentCalendar
+                events={filteredEvents}
+                onDateSelect={setSelectedDate}
+                currentMonth={currentMonth}
+                calendarView={calendarView}
+                setCalendarView={setCalendarView}
+                onNavigateMonth={setCurrentMonth}
+              />
+            </>
           )}
 
-          {/* Add Button */}
-          <button className="add-appointment-btn" onClick={() => setShowModal(true)}>
+          {/* Floating Button */}
+          <button
+            className="add-appointment-btn"
+            onClick={() => setShowModal(true)}
+          >
             + Add Appointment
           </button>
         </div>
 
-        {/* Mini Calendar on Right Side */}
-        <div 
-          className="right-sidebar-calendar"
-          onClick={() => setShowFullCalendar(true)}
-        >
+        <div className="right-sidebar-calendar">
           <h4>{new Date().toLocaleString('default', { month: 'long', year: 'numeric' })}</h4>
           <Calendar
-            onClickDay={setSelectedDate}
+            onClickDay={(date) => {
+              setSelectedDate(date);
+              setCurrentMonth(date);
+            }}
             value={selectedDate}
-            tileContent={({ date, view }) => 
-              view === 'month' && hasAppointments(date) ? (
+            tileContent={({ date, view }) =>
+              view === 'month' && appointments.some(appt =>
+                new Date(appt.start).toDateString() === date.toDateString()
+              ) ? (
                 <div className="appointment-dot"></div>
               ) : null
             }
           />
         </div>
+
       </div>
     </Layout>
   );
