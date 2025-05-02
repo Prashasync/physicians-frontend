@@ -1,0 +1,94 @@
+.register-header h2 {
+  font-weight: 600;
+  font-size: 24px;
+}
+
+.register-header h3 {
+  font-weight: 400;
+  font-size: 18px;
+  width: 90%;
+  margin: auto;
+}
+
+.register-header {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.register-form-container form {
+  width: 80%;
+}
+
+.register-inputs {
+  text-align: start;
+}
+
+.register-inputs input {
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.register-inputs label {
+  font-size: smaller;
+}
+
+.register-form-container form button {
+  background: #000000;
+  color: whitesmoke;
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+.register {
+  text-align: center;
+  color: #000000;
+  height: 100vh;
+  display: flex;
+}
+
+.register-inputs {
+  display: flex;
+  flex-direction: column;
+}
+
+.register-redirect {
+  font-weight: 900;
+}
+
+.register-options {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 80%;
+}
+
+.register-with-phone {
+  background-color: #ffffff;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #dadce0;
+  color: #3c4043;
+  font-size: 14px;
+}
+
+.terms-policy {
+  display: flex;
+  gap: 20px;
+}
+
+.register-form {
+  height: 100%;
+  width: 50%;
+}
+
+.register-form-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+}
