@@ -1,0 +1,9 @@
+.image-placeholder {
+    width: 50%;
+    border-left: 1px solid;
+  }
+  
+  .image-placeholder .image {
+    height: 100%;
+    width: 100%;
+  }

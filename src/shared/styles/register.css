@@ -1,0 +1,139 @@
+.register {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem 1rem;
+  font-family: 'Poppins', 'Segoe UI', sans-serif;
+  color: #000;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
+}
+
+.register-form {
+  width: 100%;
+  max-width: 520px;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 2.5rem;
+  box-shadow: 0 10px 30px rgba(100, 108, 255, 0.1);
+  border: 1px solid #f0f0ff;
+}
+
+.register-form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.register-header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.register-header h2 {
+  font-weight: 700;
+  font-size: 1.75rem;
+  color: #4a3aff;
+}
+
+.register-header h3 {
+  font-weight: 400;
+  font-size: 1rem;
+  color: #555;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.register-form-container form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.register-inputs {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  gap: 0.5rem;
+}
+
+.register-inputs label {
+  font-size: 0.9rem;
+  color: #444;
+  font-weight: 500;
+}
+
+.register-inputs input {
+  padding: 1rem;
+  border-radius: 12px;
+  border: 2px solid #e0e0ff;
+  background-color: #fafaff;
+  font-size: 1rem;
+  transition: border 0.3s ease;
+}
+
+.register-inputs input:focus {
+  border-color: #4a3aff;
+  outline: none;
+  background-color: #fff;
+  box-shadow: 0 0 0 4px rgba(74, 58, 255, 0.1);
+}
+
+.register-form-container form button {
+  background: linear-gradient(135deg, #4a3aff, #6c5aff);
+  color: #fff;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 1rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.register-form-container form button:hover {
+  background: linear-gradient(135deg, #6c5aff, #4a3aff);
+  box-shadow: 0 6px 12px rgba(74, 58, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.register-options {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+}
+
+.register-with-phone {
+  background-color: #fff;
+  padding: 0.75rem;
+  border-radius: 10px;
+  border: 1px solid #dadce0;
+  color: #4a4a6a;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.register-with-phone:hover {
+  border-color: #4a3aff;
+  color: #4a3aff;
+}
+
+.terms-policy {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.85rem;
+  color: #777;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.register-redirect {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #333;
+}
