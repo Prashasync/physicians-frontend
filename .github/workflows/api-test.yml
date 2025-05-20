@@ -1,0 +1,58 @@
+name: API Health Check
+
+on:
+  push:
+    branches: [ main ]
+  schedule:
+    - cron: '0 * * * *'  # Runs every hour
+  workflow_dispatch:     # Allows manual trigger from GitHub UI
+
+jobs:
+  check-apis:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install requests
+        run: pip install requests
+
+      - name: Run API checks
+        run: |
+          python3 <<EOF
+          import requests
+
+          endpoints = [
+              "https://api.prashasync.io",
+              "https://api.prashasync.io/notification/",
+              "https://api.prashasync.io/authentication/",
+              "https://api.prashasync.io/patient/",
+              "https://api.prashasync.io/chat/",
+              "https://api.prashasync.io/physician/",
+              "https://api.prashasync.io/appointment/",
+              "https://api.prashasync.io/audit/",
+              "https://api.prashasync.io/aibot/",
+              "https://api.prashasync.io/docs/"
+          ]
+
+          failed = []
+          for url in endpoints:
+              try:
+                  response = requests.get(url, timeout=10)
+                  if response.status_code != 200:
+                      print(f"❌ {url} returned status code {response.status_code}")
+                      failed.append(url)
+                  else:
+                      print(f"✅ {url} is OK")
+              except Exception as e:
+                  print(f"❌ {url} failed with exception: {e}")
+                  failed.append(url)
+
+          if failed:
+              raise Exception(f"Some API checks failed: {failed}")
+          EOF
